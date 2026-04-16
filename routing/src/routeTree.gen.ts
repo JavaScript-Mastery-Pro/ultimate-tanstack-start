@@ -12,8 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
+import { Route as FeedIndexRouteImport } from './routes/feed/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
+import { Route as PhotoPhotoIdRouteImport } from './routes/photo/$photoId'
 import { Route as DocsSplatRouteImport } from './routes/docs/$'
+import { Route as FeedPhotoPhotoIdRouteImport } from './routes/feed/photo/$photoId'
 import { Route as _authSignInSplatRouteImport } from './routes/__auth/sign-in.$'
 
 const AboutRoute = AboutRouteImport.update({
@@ -31,14 +34,29 @@ const ProductsIndexRoute = ProductsIndexRouteImport.update({
   path: '/products/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeedIndexRoute = FeedIndexRouteImport.update({
+  id: '/feed/',
+  path: '/feed/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocsIndexRoute = DocsIndexRouteImport.update({
   id: '/docs/',
   path: '/docs/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PhotoPhotoIdRoute = PhotoPhotoIdRouteImport.update({
+  id: '/photo/$photoId',
+  path: '/photo/$photoId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocsSplatRoute = DocsSplatRouteImport.update({
   id: '/docs/$',
   path: '/docs/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedPhotoPhotoIdRoute = FeedPhotoPhotoIdRouteImport.update({
+  id: '/feed/photo/$photoId',
+  path: '/feed/photo/$photoId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const _authSignInSplatRoute = _authSignInSplatRouteImport.update({
@@ -51,49 +69,82 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/docs/$': typeof DocsSplatRoute
+  '/photo/$photoId': typeof PhotoPhotoIdRoute
   '/docs/': typeof DocsIndexRoute
+  '/feed/': typeof FeedIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/sign-in/$': typeof _authSignInSplatRoute
+  '/feed/photo/$photoId': typeof FeedPhotoPhotoIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/docs/$': typeof DocsSplatRoute
+  '/photo/$photoId': typeof PhotoPhotoIdRoute
   '/docs': typeof DocsIndexRoute
+  '/feed': typeof FeedIndexRoute
   '/products': typeof ProductsIndexRoute
   '/sign-in/$': typeof _authSignInSplatRoute
+  '/feed/photo/$photoId': typeof FeedPhotoPhotoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/docs/$': typeof DocsSplatRoute
+  '/photo/$photoId': typeof PhotoPhotoIdRoute
   '/docs/': typeof DocsIndexRoute
+  '/feed/': typeof FeedIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/__auth/sign-in/$': typeof _authSignInSplatRoute
+  '/feed/photo/$photoId': typeof FeedPhotoPhotoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/docs/$' | '/docs/' | '/products/' | '/sign-in/$'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/docs/$'
+    | '/photo/$photoId'
+    | '/docs/'
+    | '/feed/'
+    | '/products/'
+    | '/sign-in/$'
+    | '/feed/photo/$photoId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/docs/$' | '/docs' | '/products' | '/sign-in/$'
+  to:
+    | '/'
+    | '/about'
+    | '/docs/$'
+    | '/photo/$photoId'
+    | '/docs'
+    | '/feed'
+    | '/products'
+    | '/sign-in/$'
+    | '/feed/photo/$photoId'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/docs/$'
+    | '/photo/$photoId'
     | '/docs/'
+    | '/feed/'
     | '/products/'
     | '/__auth/sign-in/$'
+    | '/feed/photo/$photoId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   DocsSplatRoute: typeof DocsSplatRoute
+  PhotoPhotoIdRoute: typeof PhotoPhotoIdRoute
   DocsIndexRoute: typeof DocsIndexRoute
+  FeedIndexRoute: typeof FeedIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   _authSignInSplatRoute: typeof _authSignInSplatRoute
+  FeedPhotoPhotoIdRoute: typeof FeedPhotoPhotoIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -119,6 +170,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/feed/': {
+      id: '/feed/'
+      path: '/feed'
+      fullPath: '/feed/'
+      preLoaderRoute: typeof FeedIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/docs/': {
       id: '/docs/'
       path: '/docs'
@@ -126,11 +184,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/photo/$photoId': {
+      id: '/photo/$photoId'
+      path: '/photo/$photoId'
+      fullPath: '/photo/$photoId'
+      preLoaderRoute: typeof PhotoPhotoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/docs/$': {
       id: '/docs/$'
       path: '/docs/$'
       fullPath: '/docs/$'
       preLoaderRoute: typeof DocsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feed/photo/$photoId': {
+      id: '/feed/photo/$photoId'
+      path: '/feed/photo/$photoId'
+      fullPath: '/feed/photo/$photoId'
+      preLoaderRoute: typeof FeedPhotoPhotoIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/__auth/sign-in/$': {
@@ -147,9 +219,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   DocsSplatRoute: DocsSplatRoute,
+  PhotoPhotoIdRoute: PhotoPhotoIdRoute,
   DocsIndexRoute: DocsIndexRoute,
+  FeedIndexRoute: FeedIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   _authSignInSplatRoute: _authSignInSplatRoute,
+  FeedPhotoPhotoIdRoute: FeedPhotoPhotoIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
