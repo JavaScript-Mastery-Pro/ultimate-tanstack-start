@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FallbacksIndexRouteImport } from './routes/fallbacks/index'
+import { Route as StreamingSsrProductUseRouteImport } from './routes/streaming-ssr/product-use'
+import { Route as StreamingSsrProductRouteImport } from './routes/streaming-ssr/product'
 import { Route as LoaderDepsEmployeesRouteImport } from './routes/loader-deps/employees'
 import { Route as FallbacksAnalyticsRouteImport } from './routes/fallbacks/analytics'
 import { Route as FallbacksReportsIndexRouteImport } from './routes/fallbacks/reports/index'
@@ -32,6 +34,16 @@ const IndexRoute = IndexRouteImport.update({
 const FallbacksIndexRoute = FallbacksIndexRouteImport.update({
   id: '/fallbacks/',
   path: '/fallbacks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StreamingSsrProductUseRoute = StreamingSsrProductUseRouteImport.update({
+  id: '/streaming-ssr/product-use',
+  path: '/streaming-ssr/product-use',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StreamingSsrProductRoute = StreamingSsrProductRouteImport.update({
+  id: '/streaming-ssr/product',
+  path: '/streaming-ssr/product',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoaderDepsEmployeesRoute = LoaderDepsEmployeesRouteImport.update({
@@ -73,6 +85,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/fallbacks/analytics': typeof FallbacksAnalyticsRoute
   '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
+  '/streaming-ssr/product': typeof StreamingSsrProductRoute
+  '/streaming-ssr/product-use': typeof StreamingSsrProductUseRoute
   '/fallbacks/': typeof FallbacksIndexRoute
   '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
   '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
@@ -84,6 +98,8 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/fallbacks/analytics': typeof FallbacksAnalyticsRoute
   '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
+  '/streaming-ssr/product': typeof StreamingSsrProductRoute
+  '/streaming-ssr/product-use': typeof StreamingSsrProductUseRoute
   '/fallbacks': typeof FallbacksIndexRoute
   '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
   '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
@@ -96,6 +112,8 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/fallbacks/analytics': typeof FallbacksAnalyticsRoute
   '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
+  '/streaming-ssr/product': typeof StreamingSsrProductRoute
+  '/streaming-ssr/product-use': typeof StreamingSsrProductUseRoute
   '/fallbacks/': typeof FallbacksIndexRoute
   '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
   '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
@@ -109,6 +127,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/fallbacks/analytics'
     | '/loader-deps/employees'
+    | '/streaming-ssr/product'
+    | '/streaming-ssr/product-use'
     | '/fallbacks/'
     | '/parallel-fetching/dashboard/parallel'
     | '/parallel-fetching/dashboard/safe'
@@ -120,6 +140,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/fallbacks/analytics'
     | '/loader-deps/employees'
+    | '/streaming-ssr/product'
+    | '/streaming-ssr/product-use'
     | '/fallbacks'
     | '/parallel-fetching/dashboard/parallel'
     | '/parallel-fetching/dashboard/safe'
@@ -131,6 +153,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/fallbacks/analytics'
     | '/loader-deps/employees'
+    | '/streaming-ssr/product'
+    | '/streaming-ssr/product-use'
     | '/fallbacks/'
     | '/parallel-fetching/dashboard/parallel'
     | '/parallel-fetching/dashboard/safe'
@@ -143,6 +167,8 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   FallbacksAnalyticsRoute: typeof FallbacksAnalyticsRoute
   LoaderDepsEmployeesRoute: typeof LoaderDepsEmployeesRoute
+  StreamingSsrProductRoute: typeof StreamingSsrProductRoute
+  StreamingSsrProductUseRoute: typeof StreamingSsrProductUseRoute
   FallbacksIndexRoute: typeof FallbacksIndexRoute
   ParallelFetchingDashboardParallelRoute: typeof ParallelFetchingDashboardParallelRoute
   ParallelFetchingDashboardSafeRoute: typeof ParallelFetchingDashboardSafeRoute
@@ -171,6 +197,20 @@ declare module '@tanstack/react-router' {
       path: '/fallbacks'
       fullPath: '/fallbacks/'
       preLoaderRoute: typeof FallbacksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/streaming-ssr/product-use': {
+      id: '/streaming-ssr/product-use'
+      path: '/streaming-ssr/product-use'
+      fullPath: '/streaming-ssr/product-use'
+      preLoaderRoute: typeof StreamingSsrProductUseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/streaming-ssr/product': {
+      id: '/streaming-ssr/product'
+      path: '/streaming-ssr/product'
+      fullPath: '/streaming-ssr/product'
+      preLoaderRoute: typeof StreamingSsrProductRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/loader-deps/employees': {
@@ -223,6 +263,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   FallbacksAnalyticsRoute: FallbacksAnalyticsRoute,
   LoaderDepsEmployeesRoute: LoaderDepsEmployeesRoute,
+  StreamingSsrProductRoute: StreamingSsrProductRoute,
+  StreamingSsrProductUseRoute: StreamingSsrProductUseRoute,
   FallbacksIndexRoute: FallbacksIndexRoute,
   ParallelFetchingDashboardParallelRoute:
     ParallelFetchingDashboardParallelRoute,
