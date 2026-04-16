@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoaderDepsEmployeesRouteImport } from './routes/loader-deps/employees'
 import { Route as ParallelFetchingDashboardWaterfallRouteImport } from './routes/parallel-fetching/dashboard.waterfall'
 import { Route as ParallelFetchingDashboardSafeRouteImport } from './routes/parallel-fetching/dashboard.safe'
 import { Route as ParallelFetchingDashboardParallelRouteImport } from './routes/parallel-fetching/dashboard.parallel'
@@ -23,6 +24,11 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoaderDepsEmployeesRoute = LoaderDepsEmployeesRouteImport.update({
+  id: '/loader-deps/employees',
+  path: '/loader-deps/employees',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ParallelFetchingDashboardWaterfallRoute =
@@ -47,6 +53,7 @@ const ParallelFetchingDashboardParallelRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
   '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
   '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
   '/parallel-fetching/dashboard/waterfall': typeof ParallelFetchingDashboardWaterfallRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
   '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
   '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
   '/parallel-fetching/dashboard/waterfall': typeof ParallelFetchingDashboardWaterfallRoute
@@ -62,6 +70,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
   '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
   '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
   '/parallel-fetching/dashboard/waterfall': typeof ParallelFetchingDashboardWaterfallRoute
@@ -71,6 +80,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/loader-deps/employees'
     | '/parallel-fetching/dashboard/parallel'
     | '/parallel-fetching/dashboard/safe'
     | '/parallel-fetching/dashboard/waterfall'
@@ -78,6 +88,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/loader-deps/employees'
     | '/parallel-fetching/dashboard/parallel'
     | '/parallel-fetching/dashboard/safe'
     | '/parallel-fetching/dashboard/waterfall'
@@ -85,6 +96,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/loader-deps/employees'
     | '/parallel-fetching/dashboard/parallel'
     | '/parallel-fetching/dashboard/safe'
     | '/parallel-fetching/dashboard/waterfall'
@@ -93,6 +105,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  LoaderDepsEmployeesRoute: typeof LoaderDepsEmployeesRoute
   ParallelFetchingDashboardParallelRoute: typeof ParallelFetchingDashboardParallelRoute
   ParallelFetchingDashboardSafeRoute: typeof ParallelFetchingDashboardSafeRoute
   ParallelFetchingDashboardWaterfallRoute: typeof ParallelFetchingDashboardWaterfallRoute
@@ -112,6 +125,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/loader-deps/employees': {
+      id: '/loader-deps/employees'
+      path: '/loader-deps/employees'
+      fullPath: '/loader-deps/employees'
+      preLoaderRoute: typeof LoaderDepsEmployeesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/parallel-fetching/dashboard/waterfall': {
@@ -141,6 +161,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  LoaderDepsEmployeesRoute: LoaderDepsEmployeesRoute,
   ParallelFetchingDashboardParallelRoute:
     ParallelFetchingDashboardParallelRoute,
   ParallelFetchingDashboardSafeRoute: ParallelFetchingDashboardSafeRoute,
