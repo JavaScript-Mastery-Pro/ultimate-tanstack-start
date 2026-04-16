@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TypeSafeFeedbackRouteImport } from './routes/type-safe/feedback'
 import { Route as RpcStatsRouteImport } from './routes/rpc/stats'
 
 const AboutRoute = AboutRouteImport.update({
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TypeSafeFeedbackRoute = TypeSafeFeedbackRouteImport.update({
+  id: '/type-safe/feedback',
+  path: '/type-safe/feedback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RpcStatsRoute = RpcStatsRouteImport.update({
   id: '/rpc/stats',
   path: '/rpc/stats',
@@ -33,30 +39,34 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/rpc/stats': typeof RpcStatsRoute
+  '/type-safe/feedback': typeof TypeSafeFeedbackRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/rpc/stats': typeof RpcStatsRoute
+  '/type-safe/feedback': typeof TypeSafeFeedbackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/rpc/stats': typeof RpcStatsRoute
+  '/type-safe/feedback': typeof TypeSafeFeedbackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/rpc/stats'
+  fullPaths: '/' | '/about' | '/rpc/stats' | '/type-safe/feedback'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/rpc/stats'
-  id: '__root__' | '/' | '/about' | '/rpc/stats'
+  to: '/' | '/about' | '/rpc/stats' | '/type-safe/feedback'
+  id: '__root__' | '/' | '/about' | '/rpc/stats' | '/type-safe/feedback'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   RpcStatsRoute: typeof RpcStatsRoute
+  TypeSafeFeedbackRoute: typeof TypeSafeFeedbackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/type-safe/feedback': {
+      id: '/type-safe/feedback'
+      path: '/type-safe/feedback'
+      fullPath: '/type-safe/feedback'
+      preLoaderRoute: typeof TypeSafeFeedbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rpc/stats': {
       id: '/rpc/stats'
       path: '/rpc/stats'
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   RpcStatsRoute: RpcStatsRoute,
+  TypeSafeFeedbackRoute: TypeSafeFeedbackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
