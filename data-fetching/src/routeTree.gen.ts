@@ -11,7 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FallbacksIndexRouteImport } from './routes/fallbacks/index'
 import { Route as LoaderDepsEmployeesRouteImport } from './routes/loader-deps/employees'
+import { Route as FallbacksAnalyticsRouteImport } from './routes/fallbacks/analytics'
+import { Route as FallbacksReportsIndexRouteImport } from './routes/fallbacks/reports/index'
 import { Route as ParallelFetchingDashboardWaterfallRouteImport } from './routes/parallel-fetching/dashboard.waterfall'
 import { Route as ParallelFetchingDashboardSafeRouteImport } from './routes/parallel-fetching/dashboard.safe'
 import { Route as ParallelFetchingDashboardParallelRouteImport } from './routes/parallel-fetching/dashboard.parallel'
@@ -26,9 +29,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FallbacksIndexRoute = FallbacksIndexRouteImport.update({
+  id: '/fallbacks/',
+  path: '/fallbacks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoaderDepsEmployeesRoute = LoaderDepsEmployeesRouteImport.update({
   id: '/loader-deps/employees',
   path: '/loader-deps/employees',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FallbacksAnalyticsRoute = FallbacksAnalyticsRouteImport.update({
+  id: '/fallbacks/analytics',
+  path: '/fallbacks/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FallbacksReportsIndexRoute = FallbacksReportsIndexRouteImport.update({
+  id: '/fallbacks/reports/',
+  path: '/fallbacks/reports/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ParallelFetchingDashboardWaterfallRoute =
@@ -53,62 +71,83 @@ const ParallelFetchingDashboardParallelRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/fallbacks/analytics': typeof FallbacksAnalyticsRoute
   '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
+  '/fallbacks/': typeof FallbacksIndexRoute
   '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
   '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
   '/parallel-fetching/dashboard/waterfall': typeof ParallelFetchingDashboardWaterfallRoute
+  '/fallbacks/reports/': typeof FallbacksReportsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/fallbacks/analytics': typeof FallbacksAnalyticsRoute
   '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
+  '/fallbacks': typeof FallbacksIndexRoute
   '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
   '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
   '/parallel-fetching/dashboard/waterfall': typeof ParallelFetchingDashboardWaterfallRoute
+  '/fallbacks/reports': typeof FallbacksReportsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/fallbacks/analytics': typeof FallbacksAnalyticsRoute
   '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
+  '/fallbacks/': typeof FallbacksIndexRoute
   '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
   '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
   '/parallel-fetching/dashboard/waterfall': typeof ParallelFetchingDashboardWaterfallRoute
+  '/fallbacks/reports/': typeof FallbacksReportsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/fallbacks/analytics'
     | '/loader-deps/employees'
+    | '/fallbacks/'
     | '/parallel-fetching/dashboard/parallel'
     | '/parallel-fetching/dashboard/safe'
     | '/parallel-fetching/dashboard/waterfall'
+    | '/fallbacks/reports/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/fallbacks/analytics'
     | '/loader-deps/employees'
+    | '/fallbacks'
     | '/parallel-fetching/dashboard/parallel'
     | '/parallel-fetching/dashboard/safe'
     | '/parallel-fetching/dashboard/waterfall'
+    | '/fallbacks/reports'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/fallbacks/analytics'
     | '/loader-deps/employees'
+    | '/fallbacks/'
     | '/parallel-fetching/dashboard/parallel'
     | '/parallel-fetching/dashboard/safe'
     | '/parallel-fetching/dashboard/waterfall'
+    | '/fallbacks/reports/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  FallbacksAnalyticsRoute: typeof FallbacksAnalyticsRoute
   LoaderDepsEmployeesRoute: typeof LoaderDepsEmployeesRoute
+  FallbacksIndexRoute: typeof FallbacksIndexRoute
   ParallelFetchingDashboardParallelRoute: typeof ParallelFetchingDashboardParallelRoute
   ParallelFetchingDashboardSafeRoute: typeof ParallelFetchingDashboardSafeRoute
   ParallelFetchingDashboardWaterfallRoute: typeof ParallelFetchingDashboardWaterfallRoute
+  FallbacksReportsIndexRoute: typeof FallbacksReportsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -127,11 +166,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fallbacks/': {
+      id: '/fallbacks/'
+      path: '/fallbacks'
+      fullPath: '/fallbacks/'
+      preLoaderRoute: typeof FallbacksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/loader-deps/employees': {
       id: '/loader-deps/employees'
       path: '/loader-deps/employees'
       fullPath: '/loader-deps/employees'
       preLoaderRoute: typeof LoaderDepsEmployeesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fallbacks/analytics': {
+      id: '/fallbacks/analytics'
+      path: '/fallbacks/analytics'
+      fullPath: '/fallbacks/analytics'
+      preLoaderRoute: typeof FallbacksAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fallbacks/reports/': {
+      id: '/fallbacks/reports/'
+      path: '/fallbacks/reports'
+      fullPath: '/fallbacks/reports/'
+      preLoaderRoute: typeof FallbacksReportsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/parallel-fetching/dashboard/waterfall': {
@@ -161,12 +221,15 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  FallbacksAnalyticsRoute: FallbacksAnalyticsRoute,
   LoaderDepsEmployeesRoute: LoaderDepsEmployeesRoute,
+  FallbacksIndexRoute: FallbacksIndexRoute,
   ParallelFetchingDashboardParallelRoute:
     ParallelFetchingDashboardParallelRoute,
   ParallelFetchingDashboardSafeRoute: ParallelFetchingDashboardSafeRoute,
   ParallelFetchingDashboardWaterfallRoute:
     ParallelFetchingDashboardWaterfallRoute,
+  FallbacksReportsIndexRoute: FallbacksReportsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
