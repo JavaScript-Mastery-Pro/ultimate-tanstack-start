@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
+import { Route as PreloadingIndexRouteImport } from './routes/preloading/index'
 import { Route as FeedIndexRouteImport } from './routes/feed/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
+import { Route as PreloadingTargetRouteImport } from './routes/preloading/target'
 import { Route as PhotoPhotoIdRouteImport } from './routes/photo/$photoId'
 import { Route as DocsSplatRouteImport } from './routes/docs/$'
 import { Route as FeedPhotoPhotoIdRouteImport } from './routes/feed/photo/$photoId'
@@ -34,6 +36,11 @@ const ProductsIndexRoute = ProductsIndexRouteImport.update({
   path: '/products/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PreloadingIndexRoute = PreloadingIndexRouteImport.update({
+  id: '/preloading/',
+  path: '/preloading/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FeedIndexRoute = FeedIndexRouteImport.update({
   id: '/feed/',
   path: '/feed/',
@@ -42,6 +49,11 @@ const FeedIndexRoute = FeedIndexRouteImport.update({
 const DocsIndexRoute = DocsIndexRouteImport.update({
   id: '/docs/',
   path: '/docs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PreloadingTargetRoute = PreloadingTargetRouteImport.update({
+  id: '/preloading/target',
+  path: '/preloading/target',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PhotoPhotoIdRoute = PhotoPhotoIdRouteImport.update({
@@ -70,8 +82,10 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/docs/$': typeof DocsSplatRoute
   '/photo/$photoId': typeof PhotoPhotoIdRoute
+  '/preloading/target': typeof PreloadingTargetRoute
   '/docs/': typeof DocsIndexRoute
   '/feed/': typeof FeedIndexRoute
+  '/preloading/': typeof PreloadingIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/sign-in/$': typeof _authSignInSplatRoute
   '/feed/photo/$photoId': typeof FeedPhotoPhotoIdRoute
@@ -81,8 +95,10 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/docs/$': typeof DocsSplatRoute
   '/photo/$photoId': typeof PhotoPhotoIdRoute
+  '/preloading/target': typeof PreloadingTargetRoute
   '/docs': typeof DocsIndexRoute
   '/feed': typeof FeedIndexRoute
+  '/preloading': typeof PreloadingIndexRoute
   '/products': typeof ProductsIndexRoute
   '/sign-in/$': typeof _authSignInSplatRoute
   '/feed/photo/$photoId': typeof FeedPhotoPhotoIdRoute
@@ -93,8 +109,10 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/docs/$': typeof DocsSplatRoute
   '/photo/$photoId': typeof PhotoPhotoIdRoute
+  '/preloading/target': typeof PreloadingTargetRoute
   '/docs/': typeof DocsIndexRoute
   '/feed/': typeof FeedIndexRoute
+  '/preloading/': typeof PreloadingIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/__auth/sign-in/$': typeof _authSignInSplatRoute
   '/feed/photo/$photoId': typeof FeedPhotoPhotoIdRoute
@@ -106,8 +124,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/docs/$'
     | '/photo/$photoId'
+    | '/preloading/target'
     | '/docs/'
     | '/feed/'
+    | '/preloading/'
     | '/products/'
     | '/sign-in/$'
     | '/feed/photo/$photoId'
@@ -117,8 +137,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/docs/$'
     | '/photo/$photoId'
+    | '/preloading/target'
     | '/docs'
     | '/feed'
+    | '/preloading'
     | '/products'
     | '/sign-in/$'
     | '/feed/photo/$photoId'
@@ -128,8 +150,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/docs/$'
     | '/photo/$photoId'
+    | '/preloading/target'
     | '/docs/'
     | '/feed/'
+    | '/preloading/'
     | '/products/'
     | '/__auth/sign-in/$'
     | '/feed/photo/$photoId'
@@ -140,8 +164,10 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   DocsSplatRoute: typeof DocsSplatRoute
   PhotoPhotoIdRoute: typeof PhotoPhotoIdRoute
+  PreloadingTargetRoute: typeof PreloadingTargetRoute
   DocsIndexRoute: typeof DocsIndexRoute
   FeedIndexRoute: typeof FeedIndexRoute
+  PreloadingIndexRoute: typeof PreloadingIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   _authSignInSplatRoute: typeof _authSignInSplatRoute
   FeedPhotoPhotoIdRoute: typeof FeedPhotoPhotoIdRoute
@@ -170,6 +196,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/preloading/': {
+      id: '/preloading/'
+      path: '/preloading'
+      fullPath: '/preloading/'
+      preLoaderRoute: typeof PreloadingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/feed/': {
       id: '/feed/'
       path: '/feed'
@@ -182,6 +215,13 @@ declare module '@tanstack/react-router' {
       path: '/docs'
       fullPath: '/docs/'
       preLoaderRoute: typeof DocsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preloading/target': {
+      id: '/preloading/target'
+      path: '/preloading/target'
+      fullPath: '/preloading/target'
+      preLoaderRoute: typeof PreloadingTargetRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/photo/$photoId': {
@@ -220,8 +260,10 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   DocsSplatRoute: DocsSplatRoute,
   PhotoPhotoIdRoute: PhotoPhotoIdRoute,
+  PreloadingTargetRoute: PreloadingTargetRoute,
   DocsIndexRoute: DocsIndexRoute,
   FeedIndexRoute: FeedIndexRoute,
+  PreloadingIndexRoute: PreloadingIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   _authSignInSplatRoute: _authSignInSplatRoute,
   FeedPhotoPhotoIdRoute: FeedPhotoPhotoIdRoute,
