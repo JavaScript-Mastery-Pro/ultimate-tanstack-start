@@ -9,14 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UploadRouteImport } from './routes/upload'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiProfileRouteImport } from './routes/api/profile'
 import { Route as ApiPostsRouteImport } from './routes/api/posts'
 import { Route as ApiAdminRouteImport } from './routes/api/admin'
+import { Route as ApiFilesUploadRouteImport } from './routes/api/files/upload'
+import { Route as ApiFilesExportRouteImport } from './routes/api/files/export'
 import { Route as ApiDynamicRoutesUsersUserIdIndexRouteImport } from './routes/api/dynamic-routes/users/$userId/index'
 import { Route as ApiDynamicRoutesUsersUserIdPostsPostIdRouteImport } from './routes/api/dynamic-routes/users/$userId/posts/$postId'
 
+const UploadRoute = UploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -42,6 +50,16 @@ const ApiAdminRoute = ApiAdminRouteImport.update({
   path: '/api/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiFilesUploadRoute = ApiFilesUploadRouteImport.update({
+  id: '/api/files/upload',
+  path: '/api/files/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiFilesExportRoute = ApiFilesExportRouteImport.update({
+  id: '/api/files/export',
+  path: '/api/files/export',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiDynamicRoutesUsersUserIdIndexRoute =
   ApiDynamicRoutesUsersUserIdIndexRouteImport.update({
     id: '/api/dynamic-routes/users/$userId/',
@@ -58,18 +76,24 @@ const ApiDynamicRoutesUsersUserIdPostsPostIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/upload': typeof UploadRoute
   '/api/admin': typeof ApiAdminRoute
   '/api/posts': typeof ApiPostsRoute
   '/api/profile': typeof ApiProfileRoute
+  '/api/files/export': typeof ApiFilesExportRoute
+  '/api/files/upload': typeof ApiFilesUploadRoute
   '/api/dynamic-routes/users/$userId/': typeof ApiDynamicRoutesUsersUserIdIndexRoute
   '/api/dynamic-routes/users/$userId/posts/$postId': typeof ApiDynamicRoutesUsersUserIdPostsPostIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/upload': typeof UploadRoute
   '/api/admin': typeof ApiAdminRoute
   '/api/posts': typeof ApiPostsRoute
   '/api/profile': typeof ApiProfileRoute
+  '/api/files/export': typeof ApiFilesExportRoute
+  '/api/files/upload': typeof ApiFilesUploadRoute
   '/api/dynamic-routes/users/$userId': typeof ApiDynamicRoutesUsersUserIdIndexRoute
   '/api/dynamic-routes/users/$userId/posts/$postId': typeof ApiDynamicRoutesUsersUserIdPostsPostIdRoute
 }
@@ -77,9 +101,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/upload': typeof UploadRoute
   '/api/admin': typeof ApiAdminRoute
   '/api/posts': typeof ApiPostsRoute
   '/api/profile': typeof ApiProfileRoute
+  '/api/files/export': typeof ApiFilesExportRoute
+  '/api/files/upload': typeof ApiFilesUploadRoute
   '/api/dynamic-routes/users/$userId/': typeof ApiDynamicRoutesUsersUserIdIndexRoute
   '/api/dynamic-routes/users/$userId/posts/$postId': typeof ApiDynamicRoutesUsersUserIdPostsPostIdRoute
 }
@@ -88,27 +115,36 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/upload'
     | '/api/admin'
     | '/api/posts'
     | '/api/profile'
+    | '/api/files/export'
+    | '/api/files/upload'
     | '/api/dynamic-routes/users/$userId/'
     | '/api/dynamic-routes/users/$userId/posts/$postId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/upload'
     | '/api/admin'
     | '/api/posts'
     | '/api/profile'
+    | '/api/files/export'
+    | '/api/files/upload'
     | '/api/dynamic-routes/users/$userId'
     | '/api/dynamic-routes/users/$userId/posts/$postId'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/upload'
     | '/api/admin'
     | '/api/posts'
     | '/api/profile'
+    | '/api/files/export'
+    | '/api/files/upload'
     | '/api/dynamic-routes/users/$userId/'
     | '/api/dynamic-routes/users/$userId/posts/$postId'
   fileRoutesById: FileRoutesById
@@ -116,15 +152,25 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  UploadRoute: typeof UploadRoute
   ApiAdminRoute: typeof ApiAdminRoute
   ApiPostsRoute: typeof ApiPostsRoute
   ApiProfileRoute: typeof ApiProfileRoute
+  ApiFilesExportRoute: typeof ApiFilesExportRoute
+  ApiFilesUploadRoute: typeof ApiFilesUploadRoute
   ApiDynamicRoutesUsersUserIdIndexRoute: typeof ApiDynamicRoutesUsersUserIdIndexRoute
   ApiDynamicRoutesUsersUserIdPostsPostIdRoute: typeof ApiDynamicRoutesUsersUserIdPostsPostIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/upload': {
+      id: '/upload'
+      path: '/upload'
+      fullPath: '/upload'
+      preLoaderRoute: typeof UploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -160,6 +206,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/files/upload': {
+      id: '/api/files/upload'
+      path: '/api/files/upload'
+      fullPath: '/api/files/upload'
+      preLoaderRoute: typeof ApiFilesUploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/files/export': {
+      id: '/api/files/export'
+      path: '/api/files/export'
+      fullPath: '/api/files/export'
+      preLoaderRoute: typeof ApiFilesExportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/dynamic-routes/users/$userId/': {
       id: '/api/dynamic-routes/users/$userId/'
       path: '/api/dynamic-routes/users/$userId'
@@ -180,9 +240,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  UploadRoute: UploadRoute,
   ApiAdminRoute: ApiAdminRoute,
   ApiPostsRoute: ApiPostsRoute,
   ApiProfileRoute: ApiProfileRoute,
+  ApiFilesExportRoute: ApiFilesExportRoute,
+  ApiFilesUploadRoute: ApiFilesUploadRoute,
   ApiDynamicRoutesUsersUserIdIndexRoute: ApiDynamicRoutesUsersUserIdIndexRoute,
   ApiDynamicRoutesUsersUserIdPostsPostIdRoute:
     ApiDynamicRoutesUsersUserIdPostsPostIdRoute,

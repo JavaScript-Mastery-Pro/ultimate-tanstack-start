@@ -257,3 +257,217 @@ a {
     transform: translateY(0);
   }
 }
+
+.upload-page {
+  padding: 3rem 0 4rem;
+}
+
+.upload-shell {
+  position: relative;
+  width: min(34rem, 100%);
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: 2rem;
+  padding: 1.5rem;
+}
+
+.upload-shell::before,
+.upload-shell::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+}
+
+.upload-shell::before {
+  left: -5rem;
+  bottom: -6rem;
+  width: 16rem;
+  height: 16rem;
+  background: radial-gradient(circle, rgba(79, 184, 178, 0.24), transparent 68%);
+}
+
+.upload-shell::after {
+  top: -5rem;
+  right: -4rem;
+  width: 15rem;
+  height: 15rem;
+  background: radial-gradient(circle, rgba(47, 106, 74, 0.16), transparent 70%);
+}
+
+.upload-form {
+  position: relative;
+  z-index: 1;
+}
+
+.upload-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.upload-dropzone {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  padding: 1.2rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.upload-dropzone:hover {
+  border-color: color-mix(in oklab, var(--lagoon-deep) 36%, var(--line));
+}
+
+.upload-dropzone:focus-within {
+  outline: 2px solid rgba(79, 184, 178, 0.28);
+  outline-offset: 4px;
+}
+
+.upload-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.upload-illustration {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid rgba(50, 143, 151, 0.24);
+  border-radius: 1.35rem;
+  background: linear-gradient(160deg, rgba(79, 184, 178, 0.2), rgba(255, 255, 255, 0.45));
+  color: var(--lagoon-deep);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.upload-illustration svg {
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+.upload-dropzone-copy {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.upload-dropzone-copy strong {
+  color: var(--sea-ink);
+  font-size: 1.05rem;
+}
+
+.upload-dropzone-copy > span {
+  color: var(--sea-ink-soft);
+  line-height: 1.7;
+}
+
+.upload-file-name {
+  color: var(--sea-ink);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.upload-dropzone-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  border: 1px solid rgba(50, 143, 151, 0.25);
+  background: rgba(79, 184, 178, 0.14);
+  color: var(--lagoon-deep);
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.upload-actions {
+  display: flex;
+}
+
+.upload-submit {
+  width: 100%;
+  border: 0;
+  background: linear-gradient(135deg, var(--lagoon-deep), var(--lagoon));
+  color: white;
+  border-radius: 999px;
+  padding: 0.95rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: 0 16px 30px rgba(50, 143, 151, 0.22);
+}
+
+.upload-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.upload-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+.upload-feedback {
+  margin: 0;
+  border-radius: 1.15rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--line);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.upload-feedback--success {
+  border-color: rgba(47, 106, 74, 0.24);
+  background: color-mix(in oklab, var(--surface-strong) 82%, rgba(47, 106, 74, 0.2));
+  color: color-mix(in oklab, var(--sea-ink) 86%, var(--palm));
+}
+
+.upload-feedback--error {
+  border-color: rgba(163, 58, 88, 0.24);
+  background: color-mix(in oklab, var(--surface-strong) 84%, rgba(163, 58, 88, 0.18));
+  color: color-mix(in oklab, var(--sea-ink) 74%, #b13359);
+}
+
+@media (min-width: 760px) {
+  .upload-shell {
+    padding: 2.2rem;
+  }
+
+  .upload-form {
+    gap: 1.1rem;
+  }
+
+  .upload-dropzone {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    padding: 1.4rem;
+  }
+
+  .upload-dropzone-action {
+    justify-self: end;
+  }
+}
+
+@media (max-width: 639px) {
+  .upload-page {
+    padding-top: 2rem;
+  }
+
+  .upload-shell {
+    border-radius: 1.5rem;
+  }
+}
