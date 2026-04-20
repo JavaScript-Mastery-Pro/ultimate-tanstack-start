@@ -12,9 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UploadRouteImport } from './routes/upload'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StreamingExportStreamAbortRouteImport } from './routes/streaming/export-stream-abort'
+import { Route as StreamingExportStreamRouteImport } from './routes/streaming/export-stream'
+import { Route as StreamingExportBlockingRouteImport } from './routes/streaming/export-blocking'
 import { Route as ApiProfileRouteImport } from './routes/api/profile'
 import { Route as ApiPostsRouteImport } from './routes/api/posts'
 import { Route as ApiAdminRouteImport } from './routes/api/admin'
+import { Route as ApiStreamingExportStreamAbortRouteImport } from './routes/api/streaming/export-stream-abort'
+import { Route as ApiStreamingExportStreamRouteImport } from './routes/api/streaming/export-stream'
+import { Route as ApiStreamingExportBlockingRouteImport } from './routes/api/streaming/export-blocking'
 import { Route as ApiFilesUploadRouteImport } from './routes/api/files/upload'
 import { Route as ApiFilesExportRouteImport } from './routes/api/files/export'
 import { Route as ApiDynamicRoutesUsersUserIdIndexRouteImport } from './routes/api/dynamic-routes/users/$userId/index'
@@ -35,6 +41,22 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StreamingExportStreamAbortRoute =
+  StreamingExportStreamAbortRouteImport.update({
+    id: '/streaming/export-stream-abort',
+    path: '/streaming/export-stream-abort',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const StreamingExportStreamRoute = StreamingExportStreamRouteImport.update({
+  id: '/streaming/export-stream',
+  path: '/streaming/export-stream',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StreamingExportBlockingRoute = StreamingExportBlockingRouteImport.update({
+  id: '/streaming/export-blocking',
+  path: '/streaming/export-blocking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiProfileRoute = ApiProfileRouteImport.update({
   id: '/api/profile',
   path: '/api/profile',
@@ -50,6 +72,24 @@ const ApiAdminRoute = ApiAdminRouteImport.update({
   path: '/api/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiStreamingExportStreamAbortRoute =
+  ApiStreamingExportStreamAbortRouteImport.update({
+    id: '/api/streaming/export-stream-abort',
+    path: '/api/streaming/export-stream-abort',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiStreamingExportStreamRoute =
+  ApiStreamingExportStreamRouteImport.update({
+    id: '/api/streaming/export-stream',
+    path: '/api/streaming/export-stream',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiStreamingExportBlockingRoute =
+  ApiStreamingExportBlockingRouteImport.update({
+    id: '/api/streaming/export-blocking',
+    path: '/api/streaming/export-blocking',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiFilesUploadRoute = ApiFilesUploadRouteImport.update({
   id: '/api/files/upload',
   path: '/api/files/upload',
@@ -80,8 +120,14 @@ export interface FileRoutesByFullPath {
   '/api/admin': typeof ApiAdminRoute
   '/api/posts': typeof ApiPostsRoute
   '/api/profile': typeof ApiProfileRoute
+  '/streaming/export-blocking': typeof StreamingExportBlockingRoute
+  '/streaming/export-stream': typeof StreamingExportStreamRoute
+  '/streaming/export-stream-abort': typeof StreamingExportStreamAbortRoute
   '/api/files/export': typeof ApiFilesExportRoute
   '/api/files/upload': typeof ApiFilesUploadRoute
+  '/api/streaming/export-blocking': typeof ApiStreamingExportBlockingRoute
+  '/api/streaming/export-stream': typeof ApiStreamingExportStreamRoute
+  '/api/streaming/export-stream-abort': typeof ApiStreamingExportStreamAbortRoute
   '/api/dynamic-routes/users/$userId/': typeof ApiDynamicRoutesUsersUserIdIndexRoute
   '/api/dynamic-routes/users/$userId/posts/$postId': typeof ApiDynamicRoutesUsersUserIdPostsPostIdRoute
 }
@@ -92,8 +138,14 @@ export interface FileRoutesByTo {
   '/api/admin': typeof ApiAdminRoute
   '/api/posts': typeof ApiPostsRoute
   '/api/profile': typeof ApiProfileRoute
+  '/streaming/export-blocking': typeof StreamingExportBlockingRoute
+  '/streaming/export-stream': typeof StreamingExportStreamRoute
+  '/streaming/export-stream-abort': typeof StreamingExportStreamAbortRoute
   '/api/files/export': typeof ApiFilesExportRoute
   '/api/files/upload': typeof ApiFilesUploadRoute
+  '/api/streaming/export-blocking': typeof ApiStreamingExportBlockingRoute
+  '/api/streaming/export-stream': typeof ApiStreamingExportStreamRoute
+  '/api/streaming/export-stream-abort': typeof ApiStreamingExportStreamAbortRoute
   '/api/dynamic-routes/users/$userId': typeof ApiDynamicRoutesUsersUserIdIndexRoute
   '/api/dynamic-routes/users/$userId/posts/$postId': typeof ApiDynamicRoutesUsersUserIdPostsPostIdRoute
 }
@@ -105,8 +157,14 @@ export interface FileRoutesById {
   '/api/admin': typeof ApiAdminRoute
   '/api/posts': typeof ApiPostsRoute
   '/api/profile': typeof ApiProfileRoute
+  '/streaming/export-blocking': typeof StreamingExportBlockingRoute
+  '/streaming/export-stream': typeof StreamingExportStreamRoute
+  '/streaming/export-stream-abort': typeof StreamingExportStreamAbortRoute
   '/api/files/export': typeof ApiFilesExportRoute
   '/api/files/upload': typeof ApiFilesUploadRoute
+  '/api/streaming/export-blocking': typeof ApiStreamingExportBlockingRoute
+  '/api/streaming/export-stream': typeof ApiStreamingExportStreamRoute
+  '/api/streaming/export-stream-abort': typeof ApiStreamingExportStreamAbortRoute
   '/api/dynamic-routes/users/$userId/': typeof ApiDynamicRoutesUsersUserIdIndexRoute
   '/api/dynamic-routes/users/$userId/posts/$postId': typeof ApiDynamicRoutesUsersUserIdPostsPostIdRoute
 }
@@ -119,8 +177,14 @@ export interface FileRouteTypes {
     | '/api/admin'
     | '/api/posts'
     | '/api/profile'
+    | '/streaming/export-blocking'
+    | '/streaming/export-stream'
+    | '/streaming/export-stream-abort'
     | '/api/files/export'
     | '/api/files/upload'
+    | '/api/streaming/export-blocking'
+    | '/api/streaming/export-stream'
+    | '/api/streaming/export-stream-abort'
     | '/api/dynamic-routes/users/$userId/'
     | '/api/dynamic-routes/users/$userId/posts/$postId'
   fileRoutesByTo: FileRoutesByTo
@@ -131,8 +195,14 @@ export interface FileRouteTypes {
     | '/api/admin'
     | '/api/posts'
     | '/api/profile'
+    | '/streaming/export-blocking'
+    | '/streaming/export-stream'
+    | '/streaming/export-stream-abort'
     | '/api/files/export'
     | '/api/files/upload'
+    | '/api/streaming/export-blocking'
+    | '/api/streaming/export-stream'
+    | '/api/streaming/export-stream-abort'
     | '/api/dynamic-routes/users/$userId'
     | '/api/dynamic-routes/users/$userId/posts/$postId'
   id:
@@ -143,8 +213,14 @@ export interface FileRouteTypes {
     | '/api/admin'
     | '/api/posts'
     | '/api/profile'
+    | '/streaming/export-blocking'
+    | '/streaming/export-stream'
+    | '/streaming/export-stream-abort'
     | '/api/files/export'
     | '/api/files/upload'
+    | '/api/streaming/export-blocking'
+    | '/api/streaming/export-stream'
+    | '/api/streaming/export-stream-abort'
     | '/api/dynamic-routes/users/$userId/'
     | '/api/dynamic-routes/users/$userId/posts/$postId'
   fileRoutesById: FileRoutesById
@@ -156,8 +232,14 @@ export interface RootRouteChildren {
   ApiAdminRoute: typeof ApiAdminRoute
   ApiPostsRoute: typeof ApiPostsRoute
   ApiProfileRoute: typeof ApiProfileRoute
+  StreamingExportBlockingRoute: typeof StreamingExportBlockingRoute
+  StreamingExportStreamRoute: typeof StreamingExportStreamRoute
+  StreamingExportStreamAbortRoute: typeof StreamingExportStreamAbortRoute
   ApiFilesExportRoute: typeof ApiFilesExportRoute
   ApiFilesUploadRoute: typeof ApiFilesUploadRoute
+  ApiStreamingExportBlockingRoute: typeof ApiStreamingExportBlockingRoute
+  ApiStreamingExportStreamRoute: typeof ApiStreamingExportStreamRoute
+  ApiStreamingExportStreamAbortRoute: typeof ApiStreamingExportStreamAbortRoute
   ApiDynamicRoutesUsersUserIdIndexRoute: typeof ApiDynamicRoutesUsersUserIdIndexRoute
   ApiDynamicRoutesUsersUserIdPostsPostIdRoute: typeof ApiDynamicRoutesUsersUserIdPostsPostIdRoute
 }
@@ -185,6 +267,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/streaming/export-stream-abort': {
+      id: '/streaming/export-stream-abort'
+      path: '/streaming/export-stream-abort'
+      fullPath: '/streaming/export-stream-abort'
+      preLoaderRoute: typeof StreamingExportStreamAbortRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/streaming/export-stream': {
+      id: '/streaming/export-stream'
+      path: '/streaming/export-stream'
+      fullPath: '/streaming/export-stream'
+      preLoaderRoute: typeof StreamingExportStreamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/streaming/export-blocking': {
+      id: '/streaming/export-blocking'
+      path: '/streaming/export-blocking'
+      fullPath: '/streaming/export-blocking'
+      preLoaderRoute: typeof StreamingExportBlockingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/profile': {
       id: '/api/profile'
       path: '/api/profile'
@@ -204,6 +307,27 @@ declare module '@tanstack/react-router' {
       path: '/api/admin'
       fullPath: '/api/admin'
       preLoaderRoute: typeof ApiAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/streaming/export-stream-abort': {
+      id: '/api/streaming/export-stream-abort'
+      path: '/api/streaming/export-stream-abort'
+      fullPath: '/api/streaming/export-stream-abort'
+      preLoaderRoute: typeof ApiStreamingExportStreamAbortRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/streaming/export-stream': {
+      id: '/api/streaming/export-stream'
+      path: '/api/streaming/export-stream'
+      fullPath: '/api/streaming/export-stream'
+      preLoaderRoute: typeof ApiStreamingExportStreamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/streaming/export-blocking': {
+      id: '/api/streaming/export-blocking'
+      path: '/api/streaming/export-blocking'
+      fullPath: '/api/streaming/export-blocking'
+      preLoaderRoute: typeof ApiStreamingExportBlockingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/files/upload': {
@@ -244,8 +368,14 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAdminRoute: ApiAdminRoute,
   ApiPostsRoute: ApiPostsRoute,
   ApiProfileRoute: ApiProfileRoute,
+  StreamingExportBlockingRoute: StreamingExportBlockingRoute,
+  StreamingExportStreamRoute: StreamingExportStreamRoute,
+  StreamingExportStreamAbortRoute: StreamingExportStreamAbortRoute,
   ApiFilesExportRoute: ApiFilesExportRoute,
   ApiFilesUploadRoute: ApiFilesUploadRoute,
+  ApiStreamingExportBlockingRoute: ApiStreamingExportBlockingRoute,
+  ApiStreamingExportStreamRoute: ApiStreamingExportStreamRoute,
+  ApiStreamingExportStreamAbortRoute: ApiStreamingExportStreamAbortRoute,
   ApiDynamicRoutesUsersUserIdIndexRoute: ApiDynamicRoutesUsersUserIdIndexRoute,
   ApiDynamicRoutesUsersUserIdPostsPostIdRoute:
     ApiDynamicRoutesUsersUserIdPostsPostIdRoute,
