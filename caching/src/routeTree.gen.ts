@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as RouterCacheRouteImport } from './routes/router-cache'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProfileIndexRouteImport } from './routes/profile/index'
+import { Route as ProfileInvalidateRouteImport } from './routes/profile/invalidate'
+import { Route as ApiProfileRouteImport } from './routes/api/profile'
 
 const RouterCacheRoute = RouterCacheRouteImport.update({
   id: '/router-cache',
@@ -28,35 +31,81 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileIndexRoute = ProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileInvalidateRoute = ProfileInvalidateRouteImport.update({
+  id: '/profile/invalidate',
+  path: '/profile/invalidate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProfileRoute = ApiProfileRouteImport.update({
+  id: '/api/profile',
+  path: '/api/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/router-cache': typeof RouterCacheRoute
+  '/api/profile': typeof ApiProfileRoute
+  '/profile/invalidate': typeof ProfileInvalidateRoute
+  '/profile/': typeof ProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/router-cache': typeof RouterCacheRoute
+  '/api/profile': typeof ApiProfileRoute
+  '/profile/invalidate': typeof ProfileInvalidateRoute
+  '/profile': typeof ProfileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/router-cache': typeof RouterCacheRoute
+  '/api/profile': typeof ApiProfileRoute
+  '/profile/invalidate': typeof ProfileInvalidateRoute
+  '/profile/': typeof ProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/router-cache'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/router-cache'
+    | '/api/profile'
+    | '/profile/invalidate'
+    | '/profile/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/router-cache'
-  id: '__root__' | '/' | '/about' | '/router-cache'
+  to:
+    | '/'
+    | '/about'
+    | '/router-cache'
+    | '/api/profile'
+    | '/profile/invalidate'
+    | '/profile'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/router-cache'
+    | '/api/profile'
+    | '/profile/invalidate'
+    | '/profile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   RouterCacheRoute: typeof RouterCacheRoute
+  ApiProfileRoute: typeof ApiProfileRoute
+  ProfileInvalidateRoute: typeof ProfileInvalidateRoute
+  ProfileIndexRoute: typeof ProfileIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +131,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile/': {
+      id: '/profile/'
+      path: '/profile'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof ProfileIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile/invalidate': {
+      id: '/profile/invalidate'
+      path: '/profile/invalidate'
+      fullPath: '/profile/invalidate'
+      preLoaderRoute: typeof ProfileInvalidateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/profile': {
+      id: '/api/profile'
+      path: '/api/profile'
+      fullPath: '/api/profile'
+      preLoaderRoute: typeof ApiProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +159,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   RouterCacheRoute: RouterCacheRoute,
+  ApiProfileRoute: ApiProfileRoute,
+  ProfileInvalidateRoute: ProfileInvalidateRoute,
+  ProfileIndexRoute: ProfileIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
